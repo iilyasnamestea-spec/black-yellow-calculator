@@ -1,51 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Black and yellow calculator with responsive design and keyboard support"
-    />
-    <title>Black Yellow Calculator</title>
+    <meta name="theme-color" content="#101114" />
+    <meta name="description" content="Генератор Telegram username с настройкой длины и маски." />
+    <title>Username Finder — генератор Telegram-ников</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="calculator-shell">
-      <section class="calculator" aria-label="Calculator">
-        <div class="display-panel">
-          <div class="display" id="display" aria-live="polite">0</div>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Username Finder — главная">
+          <span class="brand-mark" aria-hidden="true">@</span>
+          <span class="brand-copy"><strong>username finder</strong><small>telegram toolkit</small></span>
+        </a>
+        <div class="topbar-right"><span class="local-badge"><i></i> Локальный режим</span><button class="icon-button" id="help-button" type="button" aria-label="Информация">?</button></div>
+      </header>
+
+      <section class="intro" id="top">
+        <div class="intro-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> ПОИСК ИДЕЙ ДЛЯ НИКА</div>
+          <h1>Найдите имя,<br /><span>которое ваше.</span></h1>
+          <p>Соберите варианты по своей маске и сохраните понравившиеся. Настройки и генерация работают прямо здесь.</p>
         </div>
-
-        <div class="keypad" aria-label="Calculator keypad">
-          <button type="button" class="btn btn-secondary" data-action="clear">AC</button>
-          <button type="button" class="btn btn-secondary" data-action="delete">⌫</button>
-          <button type="button" class="btn btn-secondary" data-action="sign">±</button>
-          <button type="button" class="btn btn-operator" data-action="operator" data-value="/">÷</button>
-
-          <button type="button" class="btn" data-action="number" data-value="7">7</button>
-          <button type="button" class="btn" data-action="number" data-value="8">8</button>
-          <button type="button" class="btn" data-action="number" data-value="9">9</button>
-          <button type="button" class="btn btn-operator" data-action="operator" data-value="*">×</button>
-
-          <button type="button" class="btn" data-action="number" data-value="4">4</button>
-          <button type="button" class="btn" data-action="number" data-value="5">5</button>
-          <button type="button" class="btn" data-action="number" data-value="6">6</button>
-          <button type="button" class="btn btn-operator" data-action="operator" data-value="-">−</button>
-
-          <button type="button" class="btn" data-action="number" data-value="1">1</button>
-          <button type="button" class="btn" data-action="number" data-value="2">2</button>
-          <button type="button" class="btn" data-action="number" data-value="3">3</button>
-          <button type="button" class="btn btn-operator" data-action="operator" data-value="+">+</button>
-
-          <button type="button" class="btn btn-secondary" data-action="percent">%</button>
-          <button type="button" class="btn" data-action="number" data-value="0">0</button>
-          <button type="button" class="btn" data-action="decimal">.</button>
-          <button type="button" class="btn btn-equals" data-action="equals">=</button>
+        <div class="hero-art" aria-hidden="true">
+          <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+          <span class="hero-at">@</span><span class="spark spark-one">✳</span><span class="spark spark-two">✦</span>
+          <span class="float-tag">@yourname</span>
         </div>
       </section>
+
+      <section class="workspace" aria-label="Генератор username">
+        <aside class="settings-panel">
+          <div class="section-heading"><div><span class="step-label">НАСТРОЙКИ</span><h2>Соберите маску</h2></div><span class="settings-icon" aria-hidden="true">⌘</span></div>
+
+          <div class="setting-block">
+            <div class="label-row"><label for="length-range">Длина username</label><span class="value-pill"><b id="length-value">8</b><span>симв.</span></span></div>
+            <input id="length-range" type="range" min="5" max="15" value="8" aria-label="Длина username" />
+            <div class="range-labels"><span>5</span><span>15</span></div>
+          </div>
+
+          <div class="setting-block">
+            <div class="label-row"><span>Количество вариантов</span><span class="hint">до 10</span></div>
+            <div class="choice-row" id="count-choices" role="group" aria-label="Количество вариантов">
+              <button type="button" data-count="1">1</button><button type="button" data-count="3">3</button><button type="button" data-count="5" class="selected">5</button><button type="button" data-count="7">7</button><button type="button" data-count="10">10</button>
+            </div>
+          </div>
+
+          <div class="setting-block mask-block">
+            <div class="label-row"><label for="mask-input">Редактор маски</label><button class="text-button" id="clear-mask" type="button">Сбросить</button></div>
+            <div class="mask-input-wrap"><span class="mask-prefix">@</span><input id="mask-input" type="text" maxlength="15" autocomplete="off" spellcheck="false" placeholder="????????" aria-describedby="mask-help" /></div>
+            <p class="field-help" id="mask-help"><code>?</code> — любой символ. Например, <code>a??7?</code></p>
+            <div class="allowed-chars"><span>БУКВЫ</span><i></i><span>ЦИФРЫ</span><i></i><span>_</span></div>
+          </div>
+
+          <div class="mask-example"><span class="example-icon">✳</span><span>Первый символ — всегда английская буква</span></div>
+          <button class="primary-button" id="generate-button" type="button"><span class="button-spark">✦</span> Сгенерировать варианты <span class="button-arrow">→</span></button>
+          <button class="secondary-button" id="continue-button" type="button" disabled><span aria-hidden="true">↻</span> Продолжить предыдущий поиск</button>
+          <p class="privacy-note"><span aria-hidden="true">◈</span> Настройки сохраняются только в этом браузере</p>
+        </aside>
+
+        <section class="results-panel" aria-label="Результаты генерации">
+          <div class="results-top"><div><span class="step-label">ВАШИ ВАРИАНТЫ</span><h2 id="results-title">Готовы к генерации</h2></div><button class="icon-button refresh-button" id="regenerate-button" type="button" aria-label="Сгенерировать ещё раз" title="Сгенерировать ещё раз" disabled>↻</button></div>
+          <div class="notice" role="note"><span class="notice-icon">i</span><p><strong>Статус доступности не проверяется.</strong> Официальный Telegram Bot API не позволяет проверять, свободен ли произвольный username. Здесь можно генерировать, копировать и открывать профили.</p></div>
+          <div class="result-tabs" role="tablist" aria-label="Фильтр результатов">
+            <button type="button" class="tab active" data-filter="all" role="tab" aria-selected="true">Все <span id="all-count">0</span></button>
+            <button type="button" class="tab" data-filter="free" role="tab" aria-selected="false"><i class="status-dot free-dot"></i> Свободные <span id="free-count">0</span></button>
+            <button type="button" class="tab" data-filter="taken" role="tab" aria-selected="false"><i class="status-dot taken-dot"></i> Занятые <span id="taken-count">0</span></button>
+            <button type="button" class="tab" data-filter="unknown" role="tab" aria-selected="false"><i class="status-dot unknown-dot"></i> Не проверены <span id="unknown-count">0</span></button>
+          </div>
+          <div class="results-list" id="results-list" aria-live="polite">
+            <div class="empty-state" id="empty-state"><div class="empty-orbit"><span>@</span><i>✦</i></div><h3>Здесь появятся ваши варианты</h3><p>Настройте длину и маску, затем нажмите «Сгенерировать варианты».</p><span class="empty-tip">ВАШ СЛЕДУЮЩИЙ НИК УЖЕ БЛИЗКО</span></div>
+          </div>
+          <div class="results-footer"><span><i class="footer-dot"></i> Проверка Telegram API не подключена</span><span id="generation-note">Генерация локальная</span></div>
+        </section>
+      </section>
+      <footer class="page-footer"><span>USERNAME FINDER <i>·</i> Локальный генератор username</span><span>Создано для поиска вдохновения <b>✦</b></span></footer>
     </main>
 
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="help-dialog" id="help-dialog"><button class="dialog-close" id="close-help" type="button" aria-label="Закрыть">×</button><span class="dialog-mark">@</span><h2>Как это работает</h2><p>Задайте длину, количество и маску, чтобы получить уникальные варианты username.</p><p>Символ <code>?</code> заменяется допустимым символом. Разрешены английские буквы, цифры и подчёркивание; первая позиция — буква.</p><p class="dialog-note">Это локальный интерфейс генерации. Для достоверной проверки доступности нужен отдельный разрешённый Telegram-интеграционный сервис; официальный Bot API такую проверку произвольных username не предоставляет.</p></dialog>
     <script src="script.js"></script>
   </body>
 </html>

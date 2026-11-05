@@ -1,55 +1,28 @@
-# Black Yellow Calculator
+# Username Finder
 
-A responsive calculator website built with plain HTML, CSS, and JavaScript.
+Русскоязычный адаптивный интерфейс генератора Telegram username. Проект — статический сайт на HTML, CSS и JavaScript без сборки и внешних зависимостей.
 
-## Features
+## Возможности
 
-- Black background with yellow accents
-- Works well on desktop and Android devices
-- Supports arithmetic: addition, subtraction, multiplication, division, and percentages
-- Includes AC, delete, decimal point, sign toggle, and equals
-- Keyboard input support
-- Graceful divide-by-zero handling
-- Clean, modern layout with large touch-friendly buttons
+- Генерация от 1 до 10 уникальных вариантов длиной 5–15 символов.
+- Маски до 15 позиций: `?` обозначает случайный допустимый символ; фиксированные английские буквы, цифры и `_` сохраняются. Первая позиция всегда буква.
+- Фильтры результатов, повторная генерация и продолжение списка без дубликатов.
+- Копирование username, ссылка для открытия профиля в Telegram.
+- Сохранение настроек и сгенерированных вариантов в `localStorage`.
+- Адаптивный интерфейс и русские подсказки.
 
-## Run locally
+## Важно о доступности username
 
-Open `index.html` directly in your browser, or serve the project from a local static server:
+Интерфейс генерирует и организует варианты, но **не определяет, свободен ли username**. В официальном Telegram Bot API нет метода проверки доступности произвольного username пользователя. Поэтому сгенерированные результаты помечены «Не удалось проверить», а вкладки «Свободные» и «Занятые» остаются пустыми, пока не подключён отдельный допустимый источник проверки. Не выдавайте локально созданные результаты за проверенные.
+
+Для настоящего Telegram-бота потребуется сервер с обработчиком Telegram updates, хранилищем пользовательских настроек и отдельным интеграционным сервисом проверки, если у вас есть легитимный поддерживаемый способ проверки. Не помещайте bot token или другие секреты в браузерный JavaScript.
+
+## Запуск
+
+Откройте `index.html` в браузере или запустите простой статический сервер:
 
 ```bash
-cd black-yellow-calculator
 python3 -m http.server 8000
 ```
 
-Then open:
-
-```text
-http://localhost:8000
-```
-
-## Deploy on Cloudflare Pages
-
-1. Push this repository to GitHub.
-2. Log in to Cloudflare.
-3. Open Pages and click "Create a project".
-4. Select the GitHub repository.
-5. Choose the repository `black-yellow-calculator`.
-6. Use these settings:
-   - Framework preset: `None`
-   - Build command: leave empty
-   - Build output directory: `.`
-7. Click "Save and Deploy".
-
-This project is a static site, so no build step or backend is required.
-
-## Files
-
-- `index.html` — calculator structure
-- `styles.css` — dark theme and responsive layout
-- `script.js` — calculator logic and keyboard support
-- `README.md` — setup and deployment instructions
-
-## Notes
-
-- No registration, API, or database is required.
-- The project is ready for free hosting as a static site.
+Затем перейдите на `http://localhost:8000`.
